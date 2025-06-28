@@ -43,8 +43,8 @@ sns.boxplot(x='smoke', y='FVC', data=df_copy)
 plt.title('FVC vs Smoking')
 plt.show()
 
-sns.scatterplot(x='ABG-P-O2', y='ABG-P-CO2', hue='Risk', data=df_copy)
-plt.title('O2 vs CO2 by Risk')
+sns.scatterplot(x='FVC', y='FEC1', hue='smoke', data=df_copy)
+plt.title('FVC vs FEC1 by Smoke')
 plt.show()
 
 sns.heatmap(df_copy.corr(numeric_only=True), annot=True)
