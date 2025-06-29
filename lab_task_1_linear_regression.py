@@ -57,8 +57,8 @@ sns.barplot(x='Type of Travel', y='satisfaction', data=dataset_copy)
 plt.title('Travel Type vs Satisfaction')
 plt.show()
 
-sns.heatmap(dataset_copy.corr(numeric_only=True), annot=True)
-plt.title('Airline Correlation Matrix')
+sns.boxplot(x='Customer Type', y='Age', data=dataset_copy)
+plt.title('Class vs Flight Distance')
 plt.show()
 
 dataset['satisfaction'].value_counts()
@@ -119,11 +119,15 @@ plt.ylabel('Airline Customer Satisfaction Data')
 plt.xticks(rotation=33)
 plt.show()
 
-X=dataset.drop(columns=['satisfaction'])
-y=dataset['satisfaction']
+X = dataset[['satisfaction','Customer Type','Age','Type of Travel','Class']]
+y=dataset[['Food and drink','Seat comfort','Online support','Cleanliness','Arrival Delay in Minutes']]
 
 from sklearn.model_selection import train_test_split
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=0)
+print(X_train)
+print(y_train)
+print(X_test)
+print(y_test)
 
 print(X_train.shape)
 print(y_train.shape)
@@ -143,35 +147,14 @@ print(regressor.coef_)
 
 print(regressor.intercept_)
 
-# from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, classification_report
-
-# # Classification report
-# print(classification_report(y_test, y_pred))
-
-# # Calculate accuracy
-# accuracy = accuracy_score(y_test, y_pred)
-# print("Accuracy:", accuracy)
-
-# # Calculate precision
-# precision = precision_score(y_test, y_pred)
-# print("Precision:", precision)
-
-# # Calculate recall (sensitivity)
-# recall = recall_score(y_test, y_pred)
-# print("Recall (Sensitivity):", recall)
-
-# # Calculate F1-score
-# f1 = f1_score(y_test, y_pred)
-# print("F1-Score:", f1)
-
 # Visualizing the Correlation
 
-plt.scatter(X_train['Flight Distance'], y_train, color = 'red')
-plt.scatter(X_train['Flight Distance'], regressor.predict(X_train), color = 'blue')
-plt.plot(X_train['Flight Distance'], regressor.predict(X_train), color = 'blue')
-plt.title('Flight Distance vs Satisfaction (Training set)')
-plt.xlabel('Flight Distance')
-plt.ylabel('Satisfaction')
+plt.scatter(X_train, y_train, color = 'red')
+plt.scatter(X_train, regressor.predict(X_train), color = 'blue')
+plt.plot(X_train, regressor.predict(X_train), color = 'blue')
+plt.title('X vs Y (Training set)')
+plt.xlabel('X')
+plt.ylabel('Y')
 plt.show()
 
 from sklearn.metrics import mean_squared_error
